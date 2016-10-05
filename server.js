@@ -4,7 +4,7 @@ var PORT = process.env.PORT || 3000;
 var todos = [{
 	id: 1,
 	description: 'Meet mom for lunch',
-	completed : false
+	completed : true
 }, {
 	id: 2,
 	description: 'Goto market',
@@ -28,7 +28,7 @@ app.get('/todos',function (req,res){
 app.get('/todos/:id',function (req,res){
 	var todoId = parseInt(req.params.id,10);		//convert string to int
 	var matchedTodo;
-	
+
 	todos.forEach(function(todo){
 		if(todo.id === todoId){
 			matchedTodo=todo;
