@@ -7,6 +7,7 @@ var PORT = process.env.PORT || 3000;
 var todos = [];
 var todoNextId = 1;
 
+//body parser
 app.use(bodyParser.json());
 
 app.get('/',function (req,res){
@@ -24,6 +25,12 @@ app.get('/todos',function (req,res){
 		filteredTodos=_.where(filteredTodos, {completed:false});
 	}
 
+	if(queryParams.hasOwnProperty('description') && queryParams.description.length > 0){
+		filteredTodos=_.filter(filteredTodos,function (todo){
+			return todo.description.indexOf(queryParams.description) > -1;
+
+		});
+	}
 
 	res.json(filteredTodos); //converted into json from array
 });
@@ -94,8 +101,8 @@ app.put('/todos/:id',function (req,res){
 	//objects in js are passed by reference
 	_.extend(matchedTodo,validAttributes);
 	res.json(matchedTodo);
-
 });
+
 app.listen(PORT, function(){
 	console.log('Express listening on port '+ PORT + '!');
 });
